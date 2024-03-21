@@ -4647,7 +4647,13 @@ class LineAwesome {
 
   static fromCssClass(String cssClassName) {
     if (!_cssMap.containsKey(cssClassName)) {
-      debugPrint('Invalid css class name: $cssClassName');
+      debugPrint(
+          'Invalid css class name: $cssClassName, looking for solid version. [$cssClassName-solid]');
+      if (_cssMap.containsKey('$cssClassName-solid') &&
+          !cssClassName.contains('solid')) {
+        debugPrint('Found solid version of $cssClassName-solid.');
+        return LineAwesomeIconData(_cssMap['$cssClassName-solid']!);
+      }
       return question_circle_solid;
     }
 
